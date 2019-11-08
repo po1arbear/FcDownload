@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * Author:xz
  * Date:2019/11/7 16:06
- * Desc: 通用下载类，下载完成后默认检查MD5
+ * Desc: 通用下载类，下载完成后默认检查MD5，可以设置isCheckMd5(false)跳过检查
  */
 public class FcDownload implements IFcDownload {
     private String mDownloadUrl;
@@ -154,7 +154,7 @@ public class FcDownload implements IFcDownload {
 
     private boolean checkMd5(String filePath) {
         File file = new File(filePath);
-        if (!TextUtils.isEmpty(mMd5) && DownloadHelper.getFileMD5String(file).equals(mMd5)) {
+        if(file.exists() && file.isFile() && !TextUtils.isEmpty(mMd5) && DownloadHelper.getFileMD5String(file).equals(mMd5)){
             mMd5 = "";
             return true;
         }
